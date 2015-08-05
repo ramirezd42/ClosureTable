@@ -1099,14 +1099,14 @@ class Entity extends Eloquent implements EntityInterface
      * @param array $columns
      * @return \Franzose\ClosureTable\Extensions\Collection
      */
-    public static function getTree(array $columns = ['*'])
+    public static function getTree(array $columns = ['*'], array $with = [])
     {
         /**
          * @var Entity $instance
          */
         $instance = new static;
 
-        return $instance->orderBy('parent_id')->orderBy('position')
+        return $instance->with($with)->orderBy('parent_id')->orderBy('position')
             ->get($instance->prepareTreeQueryColumns($columns))->toTree();
     }
 
